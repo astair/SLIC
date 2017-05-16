@@ -1,20 +1,85 @@
-console.log(calcTmBaseStacking("CCCAAATTTGGG"))
-console.log(reverseComplement("GGGAATGCTTTG"))
+var seq = "GGGAATGCTTTGGGGGGGCCCCCCCC";
+var insert = "GGGAATGCTTTGGGGGGGCCCCCCCC";
+var vector = "GGGAATGCTTTGGGGGGGCCCCCCCC"
 
+var propz = {
+    Tm: 56,
+    concDNA: 200,
+    concNa: 50,
+    concMg: 0
+};
+// console.log(calcTmBaseStacking(seq, propz));
+// console.log(reverseComplement(seq));
+// console.log(primerForSlic(insert, vector, propz, calcTmBaseStacking));
+// console.log(primerRevSlic(insert, vector, propz, calcTmBaseStacking));
+// console.log(gcContent(seq));
 
 // ToDo !
-function primerFor(seq, vector5Prime, tm){
-    
-}
-
-function primerRev(seq, vector3Prime, tm){
+function molWeight(seq){
 
 }
 
-function extendToTm(seq){
-
+function calcTmBasic(seq){
+   
 }
 
+
+// Done
+function gcContent(seq){
+    var gcCount = 0;
+    seq.split("").forEach(function(base){
+        if (base == "G" || base == "C"){
+            gcCount += 1;
+        }
+    });
+    return gcCount / seq.length;
+};
+
+function extendToTm(seq, propz, method){
+    var tm = propz.Tm;
+    if (method(seq, propz).Tm < tm){
+        console.log("ERROR: Sequence to shot for desired Tm");
+        return;
+    };
+    var targetTm = 0;
+    var hi = 1;
+    var targetSeq = seq.substr(0, hi);
+    while (method(targetSeq, propz).Tm < tm) {
+        targetSeq = seq.substr(0, hi);
+        hi ++;
+    };
+
+    return targetSeq;
+};
+
+function primerForSlic(seq, vector5Prime, propz, method){
+    var insertOverlap = seq.substr(-16, 16);
+    method = calcTmBaseStacking
+    var vectorPrimer = extendToTm(vector5Prime, propz, method);
+    var primer = insertOverlap + vectorPrimer;
+    var result = {
+        primer: primer,
+        onVector: vectorPrimer,
+        onInsert: insertOverlap
+    };
+
+    return result;
+}
+
+function primerRevSlic(seq, vector3Prime, propz, method){
+    var insertOverlap = reverseComplement(seq.substr(-16, 16));
+    method = calcTmBaseStacking
+    var revVec = reverseComplement(vector3Prime)
+    var vectorPrimer = extendToTm(revVec, propz, method);
+    var primer = insertOverlap + vectorPrimer;
+    var result = {
+        primer: primer,
+        onVector: vectorPrimer,
+        onInsert: insertOverlap
+    };
+
+    return result;
+};
 
 function reverseComplement(seq){
     var compBase = {
@@ -32,27 +97,14 @@ function reverseComplement(seq){
     return compSeq.reverse().join("");
 };
 
-function gcContent(seq){
+function calcTmBaseStacking(seq, propz){
 
-}
+    var concDNA = propz.concDNA;
+    var concNa = propz.concNa;
+    var concMg = propz.concMg;
 
-function molWeight(seq){
-
-}
-
-function calcTmBasic(seq){
-   
-}
-
-
-// Done
-
-function calcTmBaseStacking(seq, concDNA=200, concNa=50, concMg=0){
-    
     var s = 0;
     var h = 0;
-
-    console.log(s, h)
 
     var enthalpyTable = {
         "AA": -7.9,
@@ -97,8 +149,6 @@ function calcTmBaseStacking(seq, concDNA=200, concNa=50, concMg=0){
     var saltEffect = (concNa / 1000) + ((concMg / 1000) * 140);
     s += 0.368 * (seq.length - 1) * Math.log(saltEffect);
 
-    console.log(s)
-
     // Terminal corrections. Santalucia 1998;
     var firstNuc = seq.charAt(0);
     if (firstNuc =="G" || firstNuc == "C"){
@@ -120,16 +170,11 @@ function calcTmBaseStacking(seq, concDNA=200, concNa=50, concMg=0){
         s += 4.1;
     };
 
-    console.log(s, h)
-
     for(var i = 0; i < seq.length - 1; i++){
         var subSeq = seq.substr(i, 2);
-        console.log(subSeq)
         h += enthalpyTable[subSeq];
         s += entropyTable[subSeq];
     };
-
-    console.log(s, h)
 
     tm = ((1000 * h) / (s + (1.987 * Math.log(concDNA / 2000000000)))) - 273.15;
 
