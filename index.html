@@ -20,12 +20,12 @@
                 <input type="text" pattern="[AaTtGgCc]+" name="insert">
             </div>
             <div id="vector" class="two fields">
-                <div class="field">
-                    <label>Vector 3' End</label>
+                <div id="vec3" class="field">
+                    <label>Vector 3'</label>
                     <input type="text" pattern="[AaTtGgCc]+" name="vector3">
                 </div>
-                <div class="field">
-                    <label>Vector 5' End</label>
+                <div id="vec5" class="field">
+                    <label>Vector 5'</label>
                     <input type="text" pattern="[AaTtGgCc]+" name="vector5">
                 </div>
             </div>
@@ -58,8 +58,8 @@
                 <div class="field">
                     <label>Overhang on:</label>
                     <select name="overhang" class="ui dropdown">
-                        <option value="insert">Insert</option>
                         <option value="vector">Vector</option>
+                        <option value="insert">Insert</option>
                         <!-- <option value="custom">Custom</option> -->
                     </select>
                 </div>
@@ -74,11 +74,13 @@
             </div>
             <div id="primersInfo" class="ui positive message">
                 <div class="ui grid">
-                    <div id="info1" class="eight wide column">
-                        <div id="headerInfo" class="header"></div>
-                        <div id="info"></div>
+                    <div class="four wide column">
                     </div>                    
-                    <div id="info2" class="eight wide column">
+                    <div class="four wide column">
+                    </div>                    
+                    <div class="four wide column">
+                    </div>                    
+                    <div class="four wide column">
                         <div id="headerInfo" class="header"></div>
                         <div id="info"></div>
                     </div>

@@ -12,7 +12,7 @@ function calcTmBasic(seq){
 function gcContent(seq){
     var gcCount = 0;
     seq.split("").forEach(function(base){
-        if (base == "G" || base == "C"){
+        if (base === "G" || base === "C"){
             gcCount += 1;
         }
     });
@@ -36,34 +36,60 @@ function extendToTm(seq, propz, method){
     return targetSeq;
 };
 
-function primerForSlic(seq, vector5Prime, propz, method){
-    var insertOverlap = seq.substr(-16, 16);
-    method = calcTmBaseStacking
-    var vectorPrimer = extendToTm(vector5Prime, propz, method);
-    var primer = insertOverlap + vectorPrimer;
-    var result = {
-        primer: primer,
-        onVector: vectorPrimer,
-        onInsert: insertOverlap
+function primerBasic(seq, propz, method){
+    primerFor = extendToTm(seq, propz, method);
+    primerRev = extendToTm(reverseComplement(seq), propz, method);
+    primers = {
+        for: primerFor,
+        rev: primerRev
     };
+    return primers;
+};
 
-    return result;
-}
-
-function primerRevSlic(seq, vector3Prime, propz, method){
-    var insertOverlap = reverseComplement(seq.substr(0, 16));
-    method = calcTmBaseStacking
-    var revVec = reverseComplement(vector3Prime)
-    var vectorPrimer = extendToTm(revVec, propz, method);
-    var primer = insertOverlap + vectorPrimer;
+function primerForSlic(seqz, propz, method, overhang="vector"){
+    switch (overhang){
+        case "vector":
+            var onInsert = seqz.ins.substr(-16, 16);
+            var onVector = extendToTm(seqz.vec5, propz, method);
+            var primer = onInsert + onVector;
+            break;
+        case "insert":
+            var onInsert = extendToTm(seqz.ins, propz, method);
+            var onVector = seqz.vec3.substr(-16, 16);
+            var primer = onVector + onInsert;
+            break;            
+    }; 
     var result = {
-        primer: primer,
-        onVector: vectorPrimer,
-        onInsert: insertOverlap
+        full: primer,
+        onVector: onVector,
+        onInsert: onInsert
     };
-
     return result;
 };
+
+function primerRevSlic(seqz, propz, method, overhang="vector"){
+    switch (overhang){
+        case "vector":
+            var onInsert = reverseComplement(seqz.ins.substr(0, 16));
+            var revVec = reverseComplement(seqz.vec3)
+            var onVector = extendToTm(revVec, propz, method);
+            var primer = onInsert + onVector;
+            break;
+        case "insert":
+            var revIns = reverseComplement(seqz.ins)
+            var onInsert = extendToTm(revIns, propz, method);
+            var onVector = reverseComplement(seqz.vec5.substr(0, 16));
+            var primer = onVector + onInsert;
+            break;            
+    }; 
+    var result = {
+        full: primer,
+        onVector: onVector,
+        onInsert: onInsert
+    };
+    return result;
+};
+
 
 function reverseComplement(seq){
     var compBase = {
@@ -135,21 +161,21 @@ function calcTmBaseStacking(seq, propz){
 
     // Terminal corrections. Santalucia 1998;
     var firstNuc = seq.charAt(0);
-    if (firstNuc =="G" || firstNuc == "C"){
+    if (firstNuc ==="G" || firstNuc === "C"){
         h += 0.1; 
         s += -2.8;
     };
-    if (firstNuc == "A" || firstNuc == "T"){
+    if (firstNuc === "A" || firstNuc === "T"){
         h += 2.3; 
         s += 4.1;
     };
 
     var lastNuc = seq.charAt(seq.length - 1);
-    if (lastNuc == "G" || lastNuc == "C"){
+    if (lastNuc === "G" || lastNuc === "C"){
         h += 0.1; 
         s += -2.8;
     };
-    if (lastNuc == "A" || lastNuc == "T"){
+    if (lastNuc === "A" || lastNuc === "T"){
         h += 2.3; 
         s += 4.1;
     };
@@ -167,16 +193,28 @@ function calcTmBaseStacking(seq, propz){
         H: h,
         Tm: tm
     };
-
     return values
-}
+};
 
 function roundTwo(num){
     return Math.round((num + 0.00001) * 100) / 100;
-}
+};
 
 function roundThree(num){
     return Math.round((num + 0.00001) * 1000) / 1000;
+};
+
+// String.format helper function for filling in  the info 
+if (!String.prototype.format) {
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+      return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+      ;
+    });
+  };
 }
 
 
