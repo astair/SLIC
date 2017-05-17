@@ -1,19 +1,3 @@
-var seq = "GGGAATGCTTTGGGGGGGCCCCCCCC";
-var insert = "GGGAATGCTTTGGGGGGGCCCCCCCC";
-var vector = "GGGAATGCTTTGGGGGGGCCCCCCCC"
-
-var propz = {
-    Tm: 56,
-    concDNA: 200,
-    concNa: 50,
-    concMg: 0
-};
-// console.log(calcTmBaseStacking(seq, propz));
-// console.log(reverseComplement(seq));
-// console.log(primerForSlic(insert, vector, propz, calcTmBaseStacking));
-// console.log(primerRevSlic(insert, vector, propz, calcTmBaseStacking));
-// console.log(gcContent(seq));
-
 // ToDo !
 function molWeight(seq){
 
@@ -67,7 +51,7 @@ function primerForSlic(seq, vector5Prime, propz, method){
 }
 
 function primerRevSlic(seq, vector3Prime, propz, method){
-    var insertOverlap = reverseComplement(seq.substr(-16, 16));
+    var insertOverlap = reverseComplement(seq.substr(0, 16));
     method = calcTmBaseStacking
     var revVec = reverseComplement(vector3Prime)
     var vectorPrimer = extendToTm(revVec, propz, method);
@@ -185,6 +169,14 @@ function calcTmBaseStacking(seq, propz){
     };
 
     return values
+}
+
+function roundTwo(num){
+    return Math.round((num + 0.00001) * 100) / 100;
+}
+
+function roundThree(num){
+    return Math.round((num + 0.00001) * 1000) / 1000;
 }
 
 

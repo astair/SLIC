@@ -28,5 +28,19 @@ h1 {
     max-width: 100px;
 }
 
+#primersField {
+    margin-top: 50px;
+    display: none;
+}
+
+#primersInfo {
+    margin-bottom: 30px;
+    display: none;
+}
+
+#headerInfo {
+    margin-bottom: 0.75em;
+}
+
 
 
