@@ -4,10 +4,6 @@ body {
     font-family: Roboto Mono;
 }
 
-.ui.container {
-    max-width: 20%;
-}
-
 h1 {
     font-family: Roboto;
     margin: 60px auto;
@@ -33,8 +29,16 @@ h1 {
     text-align: right;
 }
 
-#vec3 input{
+#vec3 input {
     text-align: right;
+}
+
+div.three.fields .field {
+    max-height: 65px;
+}
+
+#conc input {
+ max-width: 100px;
 }
 
 #tm input {
@@ -45,19 +49,34 @@ h1 {
     max-width: 100px;
 }
 
+.error.message {
+    width: 70%;
+    margin: 20px auto;
+    display: none;
+}
+
+.warning.message {
+    width: 50%;
+    margin: 20px auto;
+    display: none;
+}
+
 #primersField {
-    margin-top: 50px;
+    margin-top: 20px;
     display: none;
 }
 
 #primersInfo {
     margin-bottom: 30px;
     display: none;
+    color: black;
 }
 
-#headerInfo {
+#primersInfo .header {
     margin-bottom: 0.75em;
+    color: black;
 }
+
 
 
 

@@ -3,12 +3,25 @@ function molWeight(seq){
 
 }
 
-function calcTmBasic(seq){
-   
-}
-
-
 // Done
+function calcTmBasic(seq, propz){
+    var gcCount = 0;
+    var atCount = 0;
+    seq.split("").forEach(function(base){
+        if (base === "G" || base === "C"){
+            gcCount += 1;
+        } else if (base === "A" || base === "T"){
+            atCount += 1;
+        }
+    });
+    if (seq.length < 14){
+        Tm = 2 * atCount + 4 * gcCount;
+    } else {
+        Tm = 64.9 + 41 * (gcCount - 16.4) / (gcCount + atCount);
+    };
+    return {Tm: Tm}
+};
+
 function gcContent(seq){
     var gcCount = 0;
     seq.split("").forEach(function(base){
@@ -22,7 +35,6 @@ function gcContent(seq){
 function extendToTm(seq, propz, method){
     var tm = propz.Tm;
     if (method(seq, propz).Tm < tm){
-        console.log("ERROR: Sequence to shot for desired Tm");
         return;
     };
     var targetTm = 0;
@@ -47,15 +59,16 @@ function primerBasic(seq, propz, method){
 };
 
 function primerForSlic(seqz, propz, method, overhang="vector"){
+    l = propz.overhangLength;
     switch (overhang){
         case "vector":
-            var onInsert = seqz.ins.substr(-16, 16);
+            var onInsert = seqz.ins.substr(-l, l);
             var onVector = extendToTm(seqz.vec5, propz, method);
             var primer = onInsert + onVector;
             break;
         case "insert":
             var onInsert = extendToTm(seqz.ins, propz, method);
-            var onVector = seqz.vec3.substr(-16, 16);
+            var onVector = seqz.vec3.substr(-l, l);
             var primer = onVector + onInsert;
             break;            
     }; 
@@ -68,9 +81,10 @@ function primerForSlic(seqz, propz, method, overhang="vector"){
 };
 
 function primerRevSlic(seqz, propz, method, overhang="vector"){
+    l = propz.overhangLength;
     switch (overhang){
         case "vector":
-            var onInsert = reverseComplement(seqz.ins.substr(0, 16));
+            var onInsert = reverseComplement(seqz.ins.substr(0, l));
             var revVec = reverseComplement(seqz.vec3)
             var onVector = extendToTm(revVec, propz, method);
             var primer = onInsert + onVector;
@@ -78,7 +92,7 @@ function primerRevSlic(seqz, propz, method, overhang="vector"){
         case "insert":
             var revIns = reverseComplement(seqz.ins)
             var onInsert = extendToTm(revIns, propz, method);
-            var onVector = reverseComplement(seqz.vec5.substr(0, 16));
+            var onVector = reverseComplement(seqz.vec5.substr(0, l));
             var primer = onVector + onInsert;
             break;            
     }; 
@@ -209,13 +223,10 @@ if (!String.prototype.format) {
   String.prototype.format = function() {
     var args = arguments;
     return this.replace(/{(\d+)}/g, function(match, number) { 
-      return typeof args[number] != 'undefined'
-        ? args[number]
-        : match
-      ;
+      return typeof args[number] != 'undefined' ? args[number] : match;
     });
   };
-}
+};
 
 
 
