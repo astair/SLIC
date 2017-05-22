@@ -1,1 +1,1 @@
-# SLIC
+# SLIC primer design
