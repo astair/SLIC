@@ -42,6 +42,8 @@ $("form").on("submit",  function(event){
     // Get rid of error
     $(".error.message").css("display", "none");
     $(".warning.message").css("display", "none");
+    $(".text").css("display", "none");
+    $(".icon").removeClass("active");
 
     // Handle input data and convert to object
     var data = $(this).serializeArray().reduce(function(obj, item){
@@ -196,9 +198,17 @@ $("form").on("submit",  function(event){
 });
 
 // Tm INFO
-$(".info").on("click", function(event){
 
+$(".info.infoButton").on("click", function(event){
+    $(this).toggleClass("active");
+    $("#infoText").css("display", "block");
+    var dist = $(document).height() - 1050;
+    $('html, body').animate({ scrollTop: dist }, 1000);
+});
 
+$(".help.infoButton").on("click", function(event){
+    $(this).toggleClass("active");
+    $("#infoText").css("display", "block");
     var dist = $(document).height();
     $('html, body').animate({ scrollTop: dist }, 1000);
 });

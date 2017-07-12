@@ -99,10 +99,17 @@ img {
     color: rgba(50, 50, 50, 0.9);
 }
 
+.infoButton.active {
+    color: rgba(50, 50, 50, 0.9);
+}
+
 #infoText {
     display: none;
 }
 
+.column.text {
+    margin: 40px 40px;
+}
 
 #link {
     text-decoration: underline;
