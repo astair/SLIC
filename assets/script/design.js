@@ -228,5 +228,18 @@ if (!String.prototype.format) {
   };
 };
 
+function formatSeq(seq){
+    var seq = seq.split(" ");
+    if (seq[0].charAt(0) === ">"){
+        seq = seq.slice(1, seq.length);
+    };
+    return seq.join("");
+};
+
+function scrollDown(){
+    var dist = $(document).height();
+    $('html, body').animate({ scrollTop: dist }, 1000);
+};
+
 
 

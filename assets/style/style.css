@@ -1,5 +1,5 @@
 body {
-    background: #F2F4F4;
+    background: #E7E5DF;
     padding-top: 60px;
     font-family: Roboto Mono;
 }
@@ -7,6 +7,10 @@ body {
 h1 {
     font-family: Roboto;
     margin: 60px auto;
+}
+
+p {
+    line-height: 1.5;
 }
 
 #slic {
@@ -77,6 +81,40 @@ div.three.fields .field {
     color: black;
 }
 
+#tmInfo {
+    margin: 50px 0px
+}
+
+img {
+    margin: 20px 0;
+}
+
+.infoButton {
+    color: rgba(50, 50, 50, 0.5);
+    cursor: pointer;
+    transition: color ease-in-out 160ms;
+}
+
+.infoButton:hover {
+    color: rgba(50, 50, 50, 0.9);
+}
+
+#infoText {
+    display: none;
+}
+
+
+#link {
+    text-decoration: underline;
+    color: #1A5276;
+}
+
+#footer {
+    font-size: 0.8em;
+    color: rgba(50, 50, 50, 0.9);
+    text-align: center;
+    margin: 50px 0;
+}
 
 
 

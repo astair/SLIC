@@ -60,10 +60,12 @@ $("form").on("submit",  function(event){
 
     // Get the sequences and store in seqz object because it's more shizzle like that
     var seqz = {
-        ins: data.insert.toUpperCase(),
-        vec5: data.vector5.toUpperCase(),
-        vec3: data.vector3.toUpperCase()
+        ins: formatSeq(data.insert.toUpperCase()),
+        vec5: formatSeq(data.vector5.toUpperCase()),
+        vec3: formatSeq(data.vector3.toUpperCase())
     }
+
+    console.log(seqz)
 
     // Evaluate the Tm calculation method of choice
     switch (data.method){
@@ -190,6 +192,13 @@ $("form").on("submit",  function(event){
     };
 
     // Scroll the page down
+    scrollDown()
+});
+
+// Tm INFO
+$(".info").on("click", function(event){
+
+
     var dist = $(document).height();
     $('html, body').animate({ scrollTop: dist }, 1000);
 });
