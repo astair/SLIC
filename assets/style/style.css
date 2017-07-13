@@ -136,6 +136,10 @@ img {
     color: #7D3C98;
 }
 
+#referenceText {
+    padding-bottom: 350px;
+}
+
 p.time {
     padding-left: 3em;
 }
