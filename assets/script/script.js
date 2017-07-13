@@ -192,7 +192,7 @@ $("form").on("submit",  function(event){
     };
 
     // Scroll the page down
-    scrollDown()
+    $("#primersField").scrollView();
 });
 
 // Tm and SLIC info
