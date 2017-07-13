@@ -222,3 +222,21 @@ $(".student.infoButton").on("click", function(event){
     $(this).scrollView();
 });
 
+$(".ref").on("click", function(event){
+    $(".infoButton").removeClass("active");
+    $(".student.infoButton").addClass("active");
+    $(".ui.one .column.text").css("display", "none");
+    $("#referenceText").css("display", "block");
+    $(".student.infoButton").scrollView();
+});
+
+// Protocol
+$(".lab.infoButton").on("click", function(event){
+    $(".infoButton").removeClass("active");
+    $(this).addClass("active");
+    $(".ui.one .column.text").css("display", "none");
+    $("#protocolText").css("display", "block");
+    $(this).scrollView();
+});
+
+
