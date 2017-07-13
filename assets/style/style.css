@@ -103,17 +103,21 @@ img {
     color: rgba(50, 50, 50, 0.9);
 }
 
-#infoText {
+.ui.one .column.text {
+    margin: 40px 40px;
     display: none;
 }
 
-.column.text {
-    margin: 40px 40px;
-}
-
-#link {
+.link {
     text-decoration: underline;
     color: #1A5276;
+    cursor: pointer;
+    transition: color ease-in-out 160ms;
+}
+
+.link:hover {
+    text-decoration: none;
+    color: #2471A3;
 }
 
 #footer {

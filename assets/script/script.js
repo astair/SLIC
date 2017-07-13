@@ -65,9 +65,7 @@ $("form").on("submit",  function(event){
         ins: formatSeq(data.insert.toUpperCase()),
         vec5: formatSeq(data.vector5.toUpperCase()),
         vec3: formatSeq(data.vector3.toUpperCase())
-    }
-
-    console.log(seqz)
+    };
 
     // Evaluate the Tm calculation method of choice
     switch (data.method){
@@ -197,19 +195,30 @@ $("form").on("submit",  function(event){
     scrollDown()
 });
 
-// Tm INFO
-
-$(".info.infoButton").on("click", function(event){
-    $(this).toggleClass("active");
+// Tm and SLIC info
+$(".idea.infoButton").on("click", function(event){
+    $(".infoButton").removeClass("active");
+    $(this).addClass("active");
+    $(".ui.one .column.text").css("display", "none");
     $("#infoText").css("display", "block");
-    var dist = $(document).height() - 1050;
-    $('html, body').animate({ scrollTop: dist }, 1000);
+    $(this).scrollView();
 });
 
 $(".help.infoButton").on("click", function(event){
-    $(this).toggleClass("active");
+    $(".infoButton").removeClass("active");
+    $(this).addClass("active");
+    $(".idea.infoButton").addClass("active");
+    $(".ui.one .column.text").css("display", "none");
     $("#infoText").css("display", "block");
-    var dist = $(document).height();
-    $('html, body').animate({ scrollTop: dist }, 1000);
+    $("#tmText").scrollView();
+});
+
+// References 
+$(".student.infoButton").on("click", function(event){
+    $(".infoButton").removeClass("active");
+    $(this).addClass("active");
+    $(".ui.one .column.text").css("display", "none");
+    $("#referenceText").css("display", "block");
+    $(this).scrollView();
 });
 

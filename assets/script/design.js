@@ -236,9 +236,12 @@ function formatSeq(seq){
     return seq.join("");
 };
 
-function scrollDown(){
-    var dist = $(document).height();
-    $('html, body').animate({ scrollTop: dist }, 1000);
+$.fn.scrollView = function () {
+    return this.each(function(){
+        $('html, body').animate({
+            scrollTop: $(this).offset().top - 10
+        }, 1000);
+    });
 };
 
 
