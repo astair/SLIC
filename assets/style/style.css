@@ -53,10 +53,8 @@ div.three.fields .field {
     max-width: 100px;
 }
 
-button.green.button {
-    text-align: center;
-    width: 65px;
-    height: 50px;
+i.wizard {
+    padding-left: 10px;
 }
 
 .error.message {
