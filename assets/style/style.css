@@ -53,6 +53,11 @@ div.three.fields .field {
     max-width: 100px;
 }
 
+.green.button {
+    width: 60px;
+    height: 60px;
+}
+
 .error.message {
     width: 70%;
     margin: 20px auto;
