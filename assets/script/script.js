@@ -239,4 +239,12 @@ $(".lab.infoButton").on("click", function(event){
     $(this).scrollView();
 });
 
+$(".link.toProtocol").on("click", function(event){
+    $(".infoButton").removeClass("active");
+    $(".lab.infoButton").addClass("active");
+    $(".ui.one .column.text").css("display", "none");
+    $("#protocolText").css("display", "block");
+    $(".lab.infoButton").scrollView();
+});
+
 
