@@ -5,8 +5,7 @@
 
 
 $(".ui.dropdown")
-    .dropdown()
-;
+    .dropdown();
 
 $("#method").change(function(){
     switch ($(this).val()){
@@ -42,7 +41,7 @@ $("form").on("submit",  function(event){
     // Get rid of error
     $(".error.message").css("display", "none");
     $(".warning.message").css("display", "none");
-    $(".text").css("display", "none");
+    $(".column.text").css("display", "none");
     $(".icon").removeClass("active");
 
     // Handle input data and convert to object
