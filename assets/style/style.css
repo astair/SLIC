@@ -1,5 +1,5 @@
 body {
-    background: #E7E5DF;
+    background: #F8F9F9;
     padding-top: 60px;
     font-family: Roboto Mono;
 }
@@ -78,6 +78,9 @@ i.wizard {
     margin-bottom: 30px;
     display: none;
     color: black;
+    border-color: blue;
+    box-shadow: 0 0 0 1px #2185D0 inset, 0 0 0 0 transparent;
+    background-color: white;
 }
 
 #primersInfo .header {
